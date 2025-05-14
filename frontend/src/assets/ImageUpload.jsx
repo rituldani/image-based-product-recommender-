@@ -41,13 +41,15 @@ import { useState } from "react";
 import axios from "axios";
 import FormData from "form-data";
 
+
+
 const ImageUpload = () => {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(false);
-  // const [recommendations, setRecommendations] = useState([]);
-
+  const API_BASE_URL = process.env.REACT_APP_NODE_API;
+  const IMAGE_BASE_URL = `${process.env.REACT_APP_FLASK_API}/image`;
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
@@ -63,7 +65,7 @@ const ImageUpload = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:3001/api/upload", formData, {
+      const res = await axios.post(`${API_BASE_URL}/api/upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -73,7 +75,7 @@ const ImageUpload = () => {
       const imagePaths = res.data.recommendations;
       const imageUrls = imagePaths.map((path) => {
         const filename = path.split("\\").pop(); // Extract filename from full Windows path
-        return `http://localhost:5001/image/${filename}`; // Use Flask static route
+        return `${IMAGE_BASE_URL}/${filename}`; // Use Flask static route
       });
       setResult(imageUrls);
       // setResult(res.data.recommendations); // expects server to return { products: [...] }
