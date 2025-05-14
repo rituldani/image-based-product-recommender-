@@ -1,0 +1,30 @@
+# Ignore virtual environments
+venv/
+.venv/
+ENV/
+env/
+
+# Ignore Python cache
+__pycache__/
+*.py[cod]
+
+# Ignore logs and temp files
+*.log
+*.tmp
+
+# Ignore notebook checkpoints (just in case)
+.ipynb_checkpoints/
+
+# Ignore other files you don't need
+*.csv
+*.jpg
+*.jpeg
+*.png
+*.npy
+*.npz
+
+# Ignore environment files
+.env
+.env.*
+
+# NOTE: Don't ignore .pkl if you're tracking them with Git LFS
